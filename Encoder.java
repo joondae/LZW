@@ -40,8 +40,7 @@ public class Encoder {
 	}
 	
 	private ArrayList<Integer> generateCodes(String fileToEncode, HashMap<String, Integer> map) {
-		//not sure what size should be (help)
-		ArrayList<Integer> codes = new ArrayList<Integer>();
+		ArrayList<Integer> codes = new ArrayList<Integer>(512);
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(new File(fileToEncode)));
