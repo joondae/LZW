@@ -40,6 +40,7 @@ public class Encoder {
 	}
 	
 	private ArrayList<Integer> generateCodes(String fileToEncode, HashMap<String, Integer> map) {
+		//512 for 9 bit encoding
 		ArrayList<Integer> codes = new ArrayList<Integer>(512);
 		
 		try {
