@@ -4,7 +4,7 @@
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-# Eclsipse Core
+# Eclipse Core
 .project
 
 .DS_Store
