@@ -1,4 +1,10 @@
 /bin/
 *.class
+
+# JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# Eclsipse Core
+.project
+
 .DS_Store
