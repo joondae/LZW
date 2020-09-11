@@ -52,7 +52,7 @@ public class Encoder {
 				else {
 					//output the code word which denotes P to the codestream
 					codestream.add(dictionary.get(p));
-					bw.write(dictionary.get(p));
+					bw.write(dictionary.get(p)+" ");
 
 					//add the string concat(P,C) to the dictionary
 					dictionary.put(p + c, dictionarySize++);
