@@ -45,14 +45,14 @@ public class Encoder {
 					//to cover last read
 					if(br.ready() == false) {
 						codestream.add(dictionary.get(p));
-						bw.write(dictionary.get(p));
+						bw.write(dictionary.get(p) + " ");
 					}
 				}
 				//if not present in dictionary:
 				else {
 					//output the code word which denotes P to the codestream
 					codestream.add(dictionary.get(p));
-					bw.write(dictionary.get(p));
+					bw.write(dictionary.get(p) + " ");
 
 					//add the string concat(P,C) to the dictionary
 					dictionary.put(p + c, dictionarySize++);
