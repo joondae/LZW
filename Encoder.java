@@ -1,20 +1,19 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+//imported all io and util assets rather than having several lines importing one at a time
+import java.io.*;
+import java.util.*;
 
 public class Encoder {
+	
+	//made dictionary a public static variable within the Encoder class so that it can be accessed in the Decoder class to make decoding easier and more efficient
+	public static HashMap<String, Integer> dictionary = new HashMap<String, Integer>(512);
+
 	public ArrayList<Integer> encodeFile(String fileName) {
 		return generateCodestream(fileName, initializeDictionary());
 	}
 
 	private HashMap<String, Integer> initializeDictionary() {
 		//512 for 9 bit encoding
-		HashMap<String, Integer> dictionary = new HashMap<String, Integer>(512);
+		
 		
 		//adds ASCII table (all characters w/ decimal values from 0-255)
 		for(int i = 0; i < 256; i++) {
