@@ -62,33 +62,34 @@ public class Encoder {
 				}
 			}
 			
-			System.out.println("Maximum dictionary size reached - stopping compression");
-			//if dictionary size reaches chosen bit limit
-			while(br.ready()) {
-				int c = br.read();
-				codestream.add(c);
-				bw.write(c + " ");
-				
-				//standard? dictionary reset
-				//implement "flush character" feature?
-				//calculate compression ratio?
-				//dictionary = initializeDictionary();
-				//dictionarySize = 256;
-				
-				//alternative dictionary reset (replace already mapped values starting w/ 1st element)
-				//implement "flush character" feature here as well?
-				//calculate compression ratio?
-				//dictionary = new HashMap<String, Integer>(maxDictionarySize);
-				//dictionarySize = 0;
-			}
-			
 			//to cover last read
 			codestream.add(dictionary.get(p));
 			bw.write(dictionary.get(p) + " ");
 			
+			if(dictionary.size() >= maxDictionarySize) {
+				System.out.println("Maximum dictionary size reached - stopping compression");
+				//if dictionary size reaches chosen bit limit
+				while(br.ready()) {
+					int c = br.read();
+					codestream.add(c);
+					bw.write(c + " ");
+					
+					//standard? dictionary reset
+					//implement "flush character" feature?
+					//calculate compression ratio?
+					//dictionary = initializeDictionary();
+					//dictionarySize = 256;
+					
+					//alternative dictionary reset (replace already mapped values starting w/ 1st element)
+					//implement "flush character" feature here as well?
+					//calculate compression ratio?
+					//dictionary = new HashMap<String, Integer>(maxDictionarySize);
+					//dictionarySize = 0;
+				}
+			}
+			
 			br.close();
 			bw.close();
-			
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
