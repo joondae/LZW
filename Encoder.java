@@ -44,12 +44,6 @@ public class Encoder {
 				if(dictionary.containsKey(p + c)) {
 					//P = concat(P,C)
 					p += c;
-					
-					//to cover last read
-					if(br.ready() == false) {
-						codestream.add(dictionary.get(p));
-						bw.write(dictionary.get(p) + " ");
-					}
 				}
 				//if not present in dictionary:
 				else {
@@ -59,6 +53,7 @@ public class Encoder {
 
 					//add the string concat(P,C) to the dictionary
 					dictionary.put(p + c, dictionarySize++);
+					
 					//alternative dictionary reset
 					//dictionary.replace(p + c, dictionarySize++);
 					
@@ -69,7 +64,7 @@ public class Encoder {
 			
 			System.out.println("Maximum dictionary size reached - stopping compression");
 			//if dictionary size reaches chosen bit limit
-			while(br.ready() && dictionary.size() >= maxDictionarySize) {
+			while(br.ready()) {
 				int c = br.read();
 				codestream.add(c);
 				bw.write(c + " ");
@@ -87,7 +82,12 @@ public class Encoder {
 				//dictionarySize = 0;
 			}
 			
+			//to cover last read
+			codestream.add(dictionary.get(p));
+			bw.write(dictionary.get(p) + " ");
+			
 			br.close();
+			bw.close();
 			
 		} catch(IOException e) {
 			e.printStackTrace();
