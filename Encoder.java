@@ -90,6 +90,7 @@ public class Encoder {
 			
 			br.close();
 			bw.close();
+			//fdsafsafsa
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
