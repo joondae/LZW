@@ -59,6 +59,14 @@ public class Encoder {
 					//P = C
 					p = Character.toString(c);
 				}
+				//ends the encoded values with indicated z, starts the dictionary,separates them with spaces
+				bw.write("z");
+				//writes dictionary into file, with : to separate the index from the string
+				for (String key : dictionary.keySet())
+				{
+					bw.write(dictionary.get(key) + "$" + key.length() + "#"+key);
+					
+				}
 			}
 			
 			br.close();

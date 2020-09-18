@@ -7,16 +7,17 @@ public class Main {
 		Decoder d = new Decoder();
 		
 		
-		codes = e.encodeFile("fileToEncode.txt");
-		System.out.println(codes.size());// + "\n" + codes);
-		//d.decodeFile(codes);
+		
+		codes = e.encodeFile("LZW.txt");
+		System.out.println(codes.size() + "\n" + codes);
+		//d.decodeFile();
 		
 		
-		/*
+		
 		codes = e.encodeFile("lzw-file1.txt");
 		System.out.println(codes.size() + "\n" + codes);
 		//d.decodeFile(codes);
-		*/
+		
 		
 		/*
 		codes = e.encodeFile("lzw-file2.txt");
