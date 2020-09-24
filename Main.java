@@ -35,5 +35,10 @@ public class Main {
 		System.out.println(codes.size() + "\n" + codes);
 		//d.decodeFile(codes);
 		*/
+		
+		//test for lzw-text0.txt (the really big file)
+		
+		codes = e.encodeFile("lzw-text0.txt");
+		System.out.println(codes.size());
 	}
 }
