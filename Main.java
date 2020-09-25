@@ -7,12 +7,12 @@ public class Main {
 		ArrayList<Integer> codes = new ArrayList<Integer>();
 		Decoder d = new Decoder();
 		
-		//DO NOT RUN LARGE FILES IF YOU DON'T HAVE DICTIONARY RESET IMPLEMENTED OR INFINITELY BIG DICTIONARY
+		//DO NOT RUN LARGE FILES AND PRINT CODESTREAM
 		//test for whatever you want
 		/*
-		codes = e.encodeFile("fileToEncode.txt");
+		codes = e.encodeFile("/Users/Max/desktop/12.5MBFile.txt");
 		System.out.println(codes.size());// + "\n" + codes);
-		//d.decodeFile(codes);
+		d.decodeFile(codes);
 		*/
 		
 		//test for lzw-file1.txt
@@ -36,9 +36,11 @@ public class Main {
 		//d.decodeFile(codes);
 		*/
 		
-		//test for lzw-text0.txt (the really big file)
-		
+		//test for lzw-text0.txt (the 1.1 MB big file)
+		/*
 		codes = e.encodeFile("lzw-text0.txt");
 		System.out.println(codes.size());
+		d.decodeFile(codes);
+		*/
 	}
 }
