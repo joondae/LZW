@@ -7,9 +7,9 @@ public class Main {
 		
 		
 		
-		e.encodeFile("lzw-text0.txt");
+		e.encodeFile("test.txt");
 		//System.out.println(codes.size() + "\n" + codes);
-		d.decodeFile("lzw-text0.txt.lzw");
+		//d.decodeFile();
 		
 		
 		/*
