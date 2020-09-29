@@ -1,36 +1,14 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Main {
 	public static void main(String [] args) {
+		//Initializes Encoder and Decoder
 		Encoder e = new Encoder();
 		Decoder d = new Decoder();
 		
-		
-		
+		//Runs encoding and decoding functions on the file in the parameter
 		e.encodeFile("lzw-text0.txt");
-		//System.out.println(codes.size() + "\n" + codes);
 		d.decodeFile("lzw-text0.txt.lzw");
 		
-		
-		/*
-		codes = e.encodeFile("lzw-file1.txt");
-		System.out.println(codes.size() + "\n" + codes);
-		*/
-		//d.decodeFile(codes);
-		
-		
-		/*
-		codes = e.encodeFile("lzw-file2.txt");
-		System.out.println(codes.size() + "\n" + codes);
-		//d.decodeFile(codes);
-		*/
-		
-		/*
-		codes = e.encodeFile("lzw-file3.txt");
-		System.out.println(codes.size() + "\n" + codes);
-		//d.decodeFile(codes);
-		*/
 	}
 }
-
-//decoder: number and the a space, each character is an int, it skips spaces
