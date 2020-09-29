@@ -1,4 +1,4 @@
-//imported all io and util assets rather than having several lines importing one at a time
+//Imported all io and util assets rather than having several lines importing one at a time
 import java.io.*;
 import java.util.*;
 
@@ -14,12 +14,9 @@ public class Encoder {
 
 	//The function that adds ASCII table (all characters w/ decimal values from 0-255) to dictionary HashMap
 	private HashMap<String, Integer> initializeDictionary() {
-		//512 for 9 bit encoding
-		
 		for(int i = 0; i < 256; i++) {
 			dictionary.put(Character.toString((char) i), i);
 		}
-		
 		return dictionary;
 	}
 	
@@ -39,6 +36,7 @@ public class Encoder {
 			//Creates a new, writable file named after the original file + ".lzw"
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(file.getAbsolutePath() + ".lzw")));
 			int current = 0;
+
 			//Reads file character by character until it reaches the end
 			while((current = br.read()) != -1) {
 				char c = (char) current;
@@ -49,7 +47,7 @@ public class Encoder {
 				}
 				//If the current character is not present in dictionary:
 				else {
-					//Add the code word which denotes P to the codes
+					//Writes the code word which denotes P to the file
 					bw.write("" + dictionary.get(p) + " ");
 					//Add the string concat(P,C) to the dictionary
 					dictionary.put(p + c, dictionarySize);
@@ -59,15 +57,20 @@ public class Encoder {
 					p = "" + c;
 				}				
 			}
-			
-			bw.write("" + dictionary.get(p));
-			
-			//bw.write (codes);
 
+			//Writes the code word correlating with String p to the file
+			bw.write("" + dictionary.get(p));
+			//Closes the reading and writing streams and releases any system resources associated with them 
 			br.close();
 			bw.close();
+			//Informs the user if they pass the size limit for the dictionary
+			if (dictionarySize > 512){
+				System.out.println ("FYI, you passed the dictionary size limit of 512!");
+			}
+		}
 
-		} catch(IOException e) {
+		//This block of code will execute if an error occurs in the try block
+		catch(IOException e) {
 			e.printStackTrace();
 		}
 		
