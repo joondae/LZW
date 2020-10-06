@@ -27,5 +27,7 @@ public class Main {
 		// Runs encoding and decoding functions on the file in the parameter
 		encoder.encodeFile("lzw-text0.txt");
 		decoder.decodeFile("lzw-text0.txt.lzw");
+		// Ensures compression/decompression is lossless
+		System.out.print("Lossless compression/decompression? " + decoder.checkDecodedFile("lzw-text0.txt", "lzw-text0-decoded.txt"));
 	}
 }

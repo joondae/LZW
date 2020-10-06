@@ -80,9 +80,8 @@ public class Decoder {
 				// Adds the current code to the dictionary
 				codes.add(Integer.parseInt(currentString));
 
-				
 			}
-			
+
 			bufferedReader.close();
 		} catch (IOException exception) {
 			exception.printStackTrace();
@@ -135,5 +134,35 @@ public class Decoder {
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
+	}
+
+	/**
+	 * This method may be used to check your decoded file against the original file
+	 * that was encoded character by character.
+	 * 
+	 * @param fileName1 name of 1st file to be checked
+	 * @param fileName2 name of 2nd file that 1st file is to be checked against
+	 * @return true if both files are identical, false otherwise
+	 */
+	public boolean checkDecodedFile(String fileName1, String fileName2) {
+		try {
+			BufferedReader bufferedReader1 = new BufferedReader(
+					new FileReader(new File(fileName1)));
+			BufferedReader bufferedReader2 = new BufferedReader(
+					new FileReader(new File(fileName2)));
+
+			while (bufferedReader1.ready() && bufferedReader2.ready()) {
+				if (bufferedReader1.read() != bufferedReader2.read()) {
+					bufferedReader1.close();
+					bufferedReader2.close();
+
+					return false;
+				}
+			}
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+
+		return true;
 	}
 }
