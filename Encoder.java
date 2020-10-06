@@ -1,78 +1,137 @@
+/*
+* Praise be to Ms. Kaufman and Computer Science A teachers.
+* They spoke the truth when they spoke of handwritten code and BlueJ.
+*/
+
 //Imported all io and util assets rather than having several lines importing one at a time
 import java.io.*;
 import java.util.*;
 
+/**
+ * <p>
+ * This class encodes a given file whose name is denoted by
+ * <code>fileName</code> and prints the resulting codestream to a file whose
+ * name is <code>fileName</code>.txt.lzw.
+ * </p>
+ * 
+ * <p>
+ * 1 work of ASCII Art is at the end of this file.
+ * </p>
+ * 
+ * @author Max
+ *
+ */
 public class Encoder {
-	
-	//Initializes a dictionary HashMap that will store ASCII characters and other character combinations, and pair them with codes
+	// Initializes a dictionary HashMap that will store ASCII characters and other
+	// character combinations, and pair them with codes
+	// Size = 512 for 9 bit encoding
 	public static HashMap<String, Integer> dictionary = new HashMap<String, Integer>(512);
 
-	//The function called in the main. Calls generateCodestream() and initializeDictionary() to encode file
+	/**
+	 * This method contains & executes all helper methods used to encode given file,
+	 * denoted by <code>fileName</code>, according to the LZW compression scheme.
+	 * 
+	 * @param fileName the name of the file to be encoded
+	 */
 	public void encodeFile(String fileName) {
 		generateCodestream(fileName, initializeDictionary());
 	}
 
-	//The function that adds ASCII table (all characters w/ decimal values from 0-255) to dictionary HashMap
+	/**
+	 * This method adds all characters with decimal values from 0-255 to
+	 * <code>dictionary</code>.
+	 * 
+	 * @return the now initialized dictionary
+	 */
 	private HashMap<String, Integer> initializeDictionary() {
-		for(int i = 0; i < 256; i++) {
+		for (int i = 0; i < 256; i++) {
 			dictionary.put(Character.toString((char) i), i);
 		}
 		return dictionary;
 	}
-	
-	//Function that parses through the file and writes a new, encoded file
-	//String fileToEncode is the name of the file that you want to encode
+
+	/**
+	 * This method parses through <code>fileToEncode</code> and writes the encoded
+	 * codestream to a new, encoded file whose name is
+	 * <code>file.getAbsolutePath() + ".lzw"</code>.
+	 * 
+	 * @param fileToEncode name of the file to be encoded
+	 * @param dictionary   HashMap that contains ASCII table and other character
+	 *                     combinations as keys mapped to Integer code values
+	 */
 	private void generateCodestream(String fileToEncode, HashMap<String, Integer> dictionary) {
-		String p = "";
-		//Dictionary size is 256 due to storing ASCII characters 0-255
+		// Previous character read/combination of characters stored
+		String previous = "";
+		// Dictionary size is initially 256 due to storing ASCII characters 0-255
 		int dictionarySize = 256;
-		
-		//try statement allows you to test the block of code inside for error while it's being executed
+
 		try {
-			//Grabs the file that you want to encode
 			File file = new File(fileToEncode);
-			//Necessary in order to read the file
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			//Creates a new, writable file named after the original file + ".lzw"
-			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(file.getAbsolutePath() + ".lzw")));
-			int current = 0;
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+			BufferedWriter bufferedWriter = new BufferedWriter(
+					new FileWriter(new File(file.getAbsolutePath() + ".lzw")));
+			int currentChar = 0;
 
-			//Reads file character by character until it reaches the end
-			while((current = br.read()) != -1) {
-				char c = (char) current;
-				//If the current character is present in dictionary:
-				if(dictionary.containsKey(p + c)) {
-					//P = concat(P,C)
-					p += c;
+			// Reads file character by character until it reaches the end
+			while ((currentChar = bufferedReader.read()) != -1) {
+				char currentTempVariable = (char) currentChar;
+				// If the current character is present in dictionary:
+				if (dictionary.containsKey(previous + currentTempVariable)) {
+					// P = concat(P,C)
+					previous += currentTempVariable;
 				}
-				//If the current character is not present in dictionary:
+				// If the current character is not present in dictionary:
 				else {
-					//Writes the code word which denotes P to the file
-					bw.write("" + dictionary.get(p) + " ");
-					//Add the string concat(P,C) to the dictionary
-					dictionary.put(p + c, dictionarySize);
-					//Increases the number of elements in the dictionary map by one
+					// Writes the code word which denotes P to the file
+					bufferedWriter.write("" + dictionary.get(previous) + " ");
+					// Add the string concat(P,C) to the dictionary
+					dictionary.put(previous + currentTempVariable, dictionarySize);
+					// Increases the number of elements in the dictionary map by one
 					dictionarySize++;
-					//P = C
-					p = "" + c;
-				}				
+					// P = C
+					previous = "" + currentTempVariable;
+				}
 			}
 
-			//Writes the code word correlating with String p to the file
-			bw.write("" + dictionary.get(p));
-			//Closes the reading and writing streams and releases any system resources associated with them 
-			br.close();
-			bw.close();
-			//Informs the user if they pass the size limit for the dictionary
-			if (dictionarySize > 512){
-				System.out.println ("FYI, you passed the dictionary size limit of 512!");
+			// Writes the code word correlating with String p to the file
+			bufferedWriter.write("" + dictionary.get(previous));
+
+			// Closes reading & writing streams, releases any associated system resources
+			bufferedReader.close();
+			bufferedWriter.close();
+
+			// Informs the user if they pass the size limit for the dictionary
+			if (dictionarySize > 512) {
+				System.out.println("FYI, you passed the dictionary size limit of 512!");
 			}
 		}
 
-		//This block of code will execute if an error occurs in the try block
-		catch(IOException e) {
-			e.printStackTrace();
+		catch (IOException exception) {
+			exception.printStackTrace();
 		}
-		
+
 	}
 }
+
+/*
+ * ASCII Art (dude getting blasted by his computer screen???):
+ *        							 )
+                            )      ((     (
+                           (        ))     )
+                    )       )      //     (
+               _   (        __    (     ~->>
+        ,-----' |__,_~~___<'__`)-~__--__-~->> <
+        | //  : | -__   ~__ o)____)),__ - '> >-  >
+        | //  : |- \_ \ -\_\ -\ \ \ ~\_  \ ->> - ,  >>
+        | //  : |_~_\ -\__\ \~'\ \ \, \__ . -<-  >>
+        `-----._| `  -__`-- - ~~ -- ` --~> >
+         _/___\_    //)_`//  | ||]
+   _____[_______]_[~~-_ (.L_/  ||
+  [____________________]' `\_,/'/
+    ||| /          |||  ,___,'./
+    ||| \          |||,'______|
+    ||| /          /|| I==||
+    ||| \       __/_||  __||__
+-----||-/------`-._/||-o--o---o---
+  ~~~~~'
+ */
