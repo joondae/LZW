@@ -80,8 +80,10 @@ public class Decoder {
 				// Adds the current code to the dictionary
 				codes.add(Integer.parseInt(currentString));
 
-				bufferedReader.close();
+				
 			}
+			
+			bufferedReader.close();
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
